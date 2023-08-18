@@ -3,31 +3,61 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterCubit extends Cubit<CounterStates> {
   CounterCubit() : super(CounterAState());
-  int firstTeamCounter = 0;
-  int secondTeamCounter = 0;
+  Map<String, int> counters = {
+    'first': 0,
+    'second': 0,
+    'third': 0,
+    'forth': 0,
+  };
 
   void teamIncrement(String team, int points) {
-    if (team == 'A') {
-      firstTeamCounter += points;
-      emit(CounterAState());
-    } else {
-      secondTeamCounter += points;
-      emit(CounterBState());
+    switch (team) {
+      case 'A':
+        counters['first'] = counters['first']! + points;
+        emit(CounterAState());
+
+        break;
+      case 'B':
+        counters['second'] = counters['second']! + points;
+        emit(CounterBState());
+        break;
+      case 'C':
+        counters['third'] = counters['third']! + points;
+        emit(CounterCState());
+        break;
+      case 'D':
+        counters['forth'] = counters['forth']! + points;
+        emit(CounterDState());
     }
   }
+
   void teamDecrement(String team, int points) {
-    if (team == 'A') {
-      firstTeamCounter -= points;
-      emit(CounterAState());
-    } else {
-      secondTeamCounter -= points;
-      emit(CounterBState());
+    switch (team) {
+      case 'A':
+        counters['first'] = counters['first']! - points;
+        emit(CounterAState());
+
+        break;
+      case 'B':
+        counters['second'] = counters['second']! - points;
+        emit(CounterBState());
+        break;
+      case 'C':
+        counters['third'] = counters['third']! - points;
+        emit(CounterCState());
+        break;
+      case 'D':
+        counters['forth'] = counters['forth']! - points;
+        emit(CounterDState());
     }
   }
 
   void resetTeams() {
-    firstTeamCounter = 0;
-    secondTeamCounter = 0;
+    counters['first'] = 0;
+    counters['second'] = 0;
+    counters['third'] = 0;
+    counters['forth'] = 0;
     emit(CounterAState());
+
   }
 }
